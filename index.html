@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="A group randomizer that work on a range of number">
+    <meta name="twitter:title" content="Range-based group randomizer">
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <!-- third-generation iPad with high-resolution Retina display: -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://developer.mozilla.org/static/img/favicon144.png">
+    <!-- iPhone with high-resolution Retina display: -->
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="https://developer.mozilla.org/static/img/favicon114.png">
+    <!-- first- and second-generation iPad: -->
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="https://developer.mozilla.org/static/img/favicon72.png">
+    <!-- non-Retina iPhone, iPod Touch, and Android 2.1+ devices: -->
+    <link rel="apple-touch-icon-precomposed" href="https://developer.mozilla.org/static/img/favicon57.png">
+    <!-- basic favicon -->
+    <link rel="icon" href="https://developer.mozilla.org/static/img/favicon32.png">
+    <!-- facebook icon -->
+    <meta property="og:image" content="https://developer.mozilla.org/static/img/opengraph-logo.png">
+    <!-- facebook description -->
+    <meta property="og:description" content="The Mozilla Developer Network (MDN) provides
+    information about Open Web technologies including HTML, CSS, and APIs for both Web sites
+    and HTML5 Apps. It also documents Mozilla products, like Firefox OS.">
+    <!-- facebook title -->
+    <meta property="og:title" content="Mozilla Developer Network">
+    <title>Range-based group randomizer</title>
+</head>
+<body>
+    <h1>Group randomizer</h1>
+    <p>The maybe perfect group randomizer for school or any organization that have a sequential number given to everyone.</p>
+    <form action="/" class="form" id="input-form">
+        Range of number to randomize: <br><input type="text" class="normalInput" name="range" placeholder="Example: 1-36 or 1,5-18,20"><br><br>
+        Mode: <br><input type="radio" class="radioInput" name="mode" value="amount">The amount of groups<br>
+              <input type="radio" class="radioInput" name="mode" value="size">The size of the groups<br><br>
+        The amount or size of the groups: <br><input type="text" class="normalInput" name="value" placeholder="Example: 6"><br><br>
+        Numbers to exclude from the randomization: <br><input type="text" class="normalInput" name="exclude" placeholder="Example: 1,2,3"><br><br>
+        Numbers to be seperated into different group in the randomization: <br><input type="text" class="normalInput" name="seperate" placeholder="Example: 1,2/3,5"><br><br>
+        <button type="submit">Randomize!</button>
+    </form>
+    <h2 id="output-header" style="opacity: 0;">Output: </h2>
+    <ul id="group-list"></ul>
+    <p id="re-randomize-description" style="opacity: 0;">(Click the randomize button again to re-randomize)</p>
+    <script>
+        window.addEventListener('resize', () => {document.querySelector('body').style.width = Math.min(screen.width, 600).toString()+'px';});
+    </script>
+    <script src="script.js" defer></script>
+</body>
+</html>
