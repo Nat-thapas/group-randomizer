@@ -18,7 +18,7 @@ function validateInput(input) {
     // Normal regex checking
     const rangeRegex = /^(\d+(-\d+)?)(,\d+(-\d+)?)*$/;
     const amountOrSizeRegex = /^\d+$/;
-    const excludeRegex = /^(\d+(,\d+)*)?$/;
+    const excludeRegex = /^(\d+(-\d+)?)(,\d+(-\d+)?)*$/;
     const seperateRegex = /^((\d+(,\d+)+)(\/\d+(,\d+)+)*)?$/;
     let outputString = '';
     if (input.range === '') {
@@ -152,10 +152,9 @@ function compareArray(array1, array2) {
 function randomizeGroup(data) {
     let numbers = parseRange(data.range);
     console.log(`Parsed range input: ${numbers}`);
-    const excludes = data.exclude.split(',');
     // Remove numbers that is in the exclude input
+    let excludes = parseRange(data.exclude);
     excludes.forEach((exclude) => {
-        exclude = parseInt(exclude);
         if (numbers.includes(exclude)) {
             numbers.splice(numbers.indexOf(exclude), 1);
         }
@@ -164,9 +163,9 @@ function randomizeGroup(data) {
     let amountOfGroup = 0;
     // Get group sizes
     if (data.mode === 'amount') {
-        amountOfGroup = data.value;
+        amountOfGroup = parseInt(data.value);
     } else {
-        amountOfGroup = Math.round(numbers.length/data.value);
+        amountOfGroup = Math.round(numbers.length/parseInt(data.value));
     }
     const groupSizes = getGroupSizes(numbers.length, amountOfGroup);
     console.log(`Group sizes: ${groupSizes}`);
@@ -200,7 +199,7 @@ function randomizeGroup(data) {
                 } else {
                     alert('Too many seperate argument. Cannot generate group. (This could be due to randomness, you can try again).');
                 }
-                return false
+                return false;
             }
             if (compareArray(groups[groupNumbers[i]], seperate).length > 0) {
                 i++;
@@ -292,7 +291,7 @@ document.querySelectorAll('form').forEach((form) => {
                     alert('An unknown error has occurred. Open console for more detail (advanced user only).');
                 }
             } else {
-                console.log('The following error has occurred: Cannot get group')
+                console.log('The following error has occurred: Cannot get group');
             }
         }
     });
