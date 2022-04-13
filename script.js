@@ -22,23 +22,51 @@ function validateInput(input) {
     const seperateRegex = /^((\d+(,\d+)+)(\/\d+(,\d+)+)*)?$/;
     let outputString = '';
     if (input.range === '') {
-        outputString += 'Range input is not present, ';
+        if (lang === 'th') {
+            outputString += 'ไม่มีข้อมูลเลขที่ต้องการสุ่ม, ';
+        } else {
+            outputString += 'Range input is not present, ';
+        }
     } else if (!rangeRegex.test(input.range)) {
-        outputString += 'Range input is invalid, ';
+        if (lang === 'th') {
+            outputString += 'ข้อมูลเลขที่จะสุ่มไม่ถูกต้อง, ';
+        } else {
+            outputString += 'Range input is invalid, ';
+        }
     }
     if (!input.mode) {
-        outputString += 'Mode is not provided, ';
+        if (lang === 'th') {
+            outputString += 'ไม่มีข้อมูลโหมด, ';
+        } else {
+            outputString += 'Mode is not provided, ';
+        }
     }
     if (input.value === '') {
-        outputString += 'Amount/size input is not present, ';
+        if (lang === 'th') {
+            outputString += 'ไม่มีข้อมูลจำนวนหรือขนาดของกลุ่ม, ';
+        } else {
+            outputString += 'Amount/size input is not present, ';
+        }
     } else if (!amountOrSizeRegex.test(input.value)) {
-        outputString += 'Amount/size input is invalid, ';
+        if (lang === 'th') {
+            outputString += 'ข้อมูลจำนวนหรือขนาดของกลุ่มไม่ถูกต้อง, ';
+        } else {
+            outputString += 'Amount/size input is invalid, ';
+        }
     }
     if (!excludeRegex.test(input.exclude)) {
-        outputString += 'Exclude input is invalid, ';
+        if (lang === 'th') {
+            outputString += 'ข้อมูลเลขที่จะไม่สุ่มไม่ถูกต้อง, ';
+        } else {
+            outputString += 'Exclude input is invalid, ';
+        }
     }
     if (!seperateRegex.test(input.seperate)) {
-        outputString += 'Seperation input is invalid, ';
+        if (lang === 'th') {
+            outputString += 'ข้อมูลเลขที่จะแยกกลุ่มไม่ถูกต้อง, ';
+        } else {
+            outputString += 'Seperation input is invalid, ';
+        }
     }
     if (outputString === '') {
         return true;
@@ -167,7 +195,11 @@ function randomizeGroup(data) {
         // Only fill if the number in the seperate input is also in the numbers array, protect against edge cases and repeat addition
         while (filled < seperate.length) {
             if (i >= groupNumbers.length) {
-                alert('Too many seperate argument. Cannot generate group. (This could be due to randomness, you can try again).');
+                if (lang === 'th') {
+                    alert('เลขที่จะแยกกลุ่มมากเกินไป ไม่สามารถสร้างกลุ่มได้ (นี่อาจเป็นผลจากโชค คุณสามารถลองสุ่มใหม่ด้วยข้อมูลเดิมได้)');
+                } else {
+                    alert('Too many seperate argument. Cannot generate group. (This could be due to randomness, you can try again).');
+                }
                 return false
             }
             if (compareArray(groups[groupNumbers[i]], seperate).length > 0) {
@@ -254,7 +286,11 @@ document.querySelectorAll('form').forEach((form) => {
         } catch (e) {
             if (e !== unableToGetGroup) {
                 console.log(`The following error has occurred: ${e}`);
-                alert('An unknown error has occurred. Open console for more detail (advanced user only).');
+                if (lang === 'th') {
+                    alert('เกิดข้อผิดพลาดขึ้นโดยไม่ทราบสาเหตุ เปิด console สำหรับข้อมูลเพิ่มเติน (ผู้ใช้ขั้นสูงเท่านั้น)');
+                } else {
+                    alert('An unknown error has occurred. Open console for more detail (advanced user only).');
+                }
             } else {
                 console.log('The following error has occurred: Cannot get group')
             }
