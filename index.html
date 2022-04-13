@@ -6,7 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="A group randomizer that work on a range of number">
     <meta name="twitter:title" content="Range-based group randomizer">
-    <link rel="stylesheet" href="style.css">
+    <link id="link-css" rel="stylesheet" href="style-dark.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Sarabun">
     <link rel="icon" href="favicon.ico" type="image/x-icon">
     <!-- third-generation iPad with high-resolution Retina display: -->
     <link rel="apple-touch-icon-precomposed" sizes="144x144" href="icons/144x144.png">
@@ -28,23 +30,39 @@
 </head>
 <body>
     <h1>Group randomizer</h1>
-    <p>The maybe perfect group randomizer for school or any organization that have a sequential number given to everyone.</p>
-    <form action="/" class="form" id="input-form">
-        Range of number to randomize: <br><input type="text" class="normalInput" name="range" placeholder="Example: 1-36 or 1,5-18,20"><br><br>
-        Mode: <br><input type="radio" class="radioInput" name="mode" value="amount">The amount of groups<br>
-              <input type="radio" class="radioInput" name="mode" value="size">The size of the groups<br><br>
-        The amount or size of the groups: <br><input type="text" class="normalInput" name="value" placeholder="Example: 6"><br><br>
+    <button id="theme-button">Theme: </button>
+    <button id="lang-button">Language: </button>
+    <p lang="en">The maybe perfect group randomizer for school or any organization that have a sequential number given to everyone.</p>
+    <p lang="th">ระบบสุ่มกลุ่มสำหรับกลุ่มคนที่มีเลขประจำตัวเรียงกัน เช่นเลขที่ของนักเรียนในห้องเรียน</p>
+    <form lang="en" action="/" class="form" id="input-form-en">
+        Range of number (or amount of numbers) to randomize: <br><input type="text" class="normalInput" name="range" placeholder="Example: 36 or 1,5-18,20" required><br><br>
+        Mode: <br><input type="radio" class="radioInput" name="mode" value="amount" required>The amount of groups<br>
+              <input type="radio" class="radioInput" name="mode" value="size" required>The size of the groups<br><br>
+        The amount or size of the groups: <br><input type="text" class="normalInput" name="value" placeholder="Example: 6" required><br><br>
         Numbers to exclude from the randomization: <br><input type="text" class="normalInput" name="exclude" placeholder="Example: 1,2,3"><br><br>
-        Numbers to be seperated into different group in the randomization: <br><input type="text" class="normalInput" name="seperate" placeholder="Example: 1,2/3,5"><br><br>
-        <button type="submit">Randomize!</button>
+        Numbers to be seperated into different groups: <br><input type="text" class="normalInput" name="seperate" placeholder="Example: 1,2/3,5"><br><br>
+        <button type="submit" id="submit-button">Randomize!</button>
     </form>
-    <h2 id="output-header" style="opacity: 0;">Output: </h2>
-    <ul id="group-list"></ul>
-    <p id="re-randomize-description" style="opacity: 0;">(Click the randomize button again to re-randomize)</p>
+    <form lang="th" action="/" class="form" id="input-form-th">
+        ช่วงของเลข หรือจำนวนเลขที่จะสุ่ม: <br><input type="text" class="normalInput" name="range" placeholder="เช่น: 36 or 1,5-18,20" required><br><br>
+        โหมด: <br><input type="radio" class="radioInput" name="mode" value="amount" required>จำนวนกลุ่ม<br>
+              <input type="radio" class="radioInput" name="mode" value="size" required>ขนาดกลุ่ม<br><br>
+        จำนวนหรือขนาดของกลุ่ม: <br><input type="text" class="normalInput" name="value" placeholder="เช่น: 6" required><br><br>
+        เลขที่จะไม่สุ่ม: <br><input type="text" class="normalInput" name="exclude" placeholder="เช่น: 1,2,3"><br><br>
+        เลขที่จะแยกคนละกลุ่ม: <br><input type="text" class="normalInput" name="seperate" placeholder="เช่น: 1,2/3,5"><br><br>
+        <button type="submit" id="submit-button">สุ่มเลย!</button>
+    </form>
+    <h2 lang="en" class="output-header" id="output-header-en" style="opacity: 0;">Output: </h2>
+    <h2 lang="th" class="output-header" id="output-header-th" style="opacity: 0;">กลุ่ม: </h2>
+    <ul style="opacity: 0;" id="group-list"></ul>
+    <p lang="en" class="re-randomize-description" id="re-randomize-description-en" style="opacity: 0;">(Click the randomize button again to re-randomize)</p>
+    <p lang="th" class="re-randomize-description" id="re-randomize-description-th" style="opacity: 0;">(กดปุ่มสุ่มอีกครั้งเพื่อทำการสุ่มใหม่)</p>
     <p id="attribution">Logo by Vectorstall from Noun Project</p>
-    <script>
-        window.addEventListener('resize', () => {document.querySelector('body').style.width = Math.min(screen.width, 600).toString()+'px';});
+    <script defer>
+        document.querySelector('body').style.width = Math.min(Math.max(screen.width-40, 335), 600).toString()+'px';
+        window.addEventListener('resize', () => document.querySelector('body').style.width = Math.min(Math.max(screen.width-40, 335), 600).toString()+'px');
     </script>
     <script src="script.js" defer></script>
+    <script src="switcher.js" defer></script>
 </body>
 </html>

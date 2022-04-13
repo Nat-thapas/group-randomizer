@@ -1,10 +1,17 @@
-const inputForm = document.getElementById('input-form');
+var lang = localStorage.getItem('lang').toLowerCase();
+var inputForm = document.getElementById(`input-form-${lang}`);
 const groupList = document.getElementById('group-list');
 const body = document.querySelector('body');
-const outputHeader = document.getElementById('output-header')
-const reRandomizeDescription = document.getElementById('re-randomize-description');
+const outputHeaders = document.getElementsByClassName('output-header')
+const reRandomizeDescriptions = document.getElementsByClassName('re-randomize-description');
 
 const unableToGetGroup = {};
+
+
+function updateLang() {
+    lang = localStorage.getItem('lang').toLowerCase();
+    inputForm = document.getElementById(`input-form-${lang}`);
+}
 
 
 function validateInput(input) {
@@ -196,48 +203,61 @@ function updateHTMLData(groups) {
     groups.forEach((group, groupNumber) => {
         let li = document.createElement('li');
         let text = group.sort((a, b) => a - b).toString().replaceAll(',', ', ');
-        text = `Group ${groupNumber+1} : ` + text;
+        if (lang === 'th') {
+            text = `กลุ่มที่ ${groupNumber+1} : ` + text;
+        } else {
+            text = `Group ${groupNumber+1} : ` + text;
+        }
+        
         li.appendChild(document.createTextNode(text));
         groupList.appendChild(li);
     });
     // Set Output: header to be visible
-    outputHeader.style.opacity = 1;
+    for (let outputHeader of outputHeaders) {
+        outputHeader.style.opacity = 1;
+    }
+    // Set Group list to be visible
+    groupList.style.opacity = 1;
     // Set re-randomize tip to be visible
-    reRandomizeDescription.style.opacity = 1;
+    for (let reRandomizeDescription of reRandomizeDescriptions) {
+        reRandomizeDescription.style.opacity = 1;
+    }
 }
 
 
-inputForm.addEventListener('submit', (evt) => {
-    // Prevent submitting the form to the server
-    evt.preventDefault();
-    // Format form data into dictionary
-    const rawFormData = new FormData(evt.target);
-    const mode = evt.target.elements['mode'].value;
-    let formData = {};
-    rawFormData.forEach((value, key) => {
-        formData[key] = value.replaceAll(' ', '');
+document.querySelectorAll('form').forEach((form) => {
+    form.addEventListener('submit', (evt) => {
+        // Prevent submitting the form to the server
+        evt.preventDefault();
+        // Format form data into dictionary
+        const rawFormData = new FormData(evt.target);
+        const mode = evt.target.elements['mode'].value;
+        let formData = {};
+        rawFormData.forEach((value, key) => {
+            formData[key] = value.replaceAll(' ', '');
+        });
+        // Add radio input seperately
+        formData.mode = mode.replaceAll(' ', '');
+        console.log(`Form data is: ${JSON.stringify(formData)}`);
+        // Validate input
+        if (!validateInput(formData)) {
+            return false;
+        }
+        // Basic try catch
+        try {
+            groups = randomizeGroup(formData);
+            if (groups) {
+                updateHTMLData(groups);
+            } else {
+                throw unableToGetGroup;
+            }
+        } catch (e) {
+            if (e !== unableToGetGroup) {
+                console.log(`The following error has occurred: ${e}`);
+                alert('An unknown error has occurred. Open console for more detail (advanced user only).');
+            } else {
+                console.log('The following error has occurred: Cannot get group')
+            }
+        }
     });
-    // Add radio input seperately
-    formData.mode = mode.replaceAll(' ', '');
-    console.log(`Form data is: ${JSON.stringify(formData)}`);
-    // Validate input
-    if (!validateInput(formData)) {
-        return false;
-    }
-    // Basic try catch
-    try {
-        groups = randomizeGroup(formData);
-        if (groups) {
-            updateHTMLData(groups);
-        } else {
-            throw unableToGetGroup;
-        }
-    } catch (e) {
-        if (e !== unableToGetGroup) {
-            console.log(`The following error has occurred: ${e}`);
-            alert('An unknown error has occurred. Open console for more detail (advanced user only).');
-        } else {
-            console.log('The following error has occurred: Cannot get group')
-        }
-    }
 });
