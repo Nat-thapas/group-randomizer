@@ -18,7 +18,7 @@ function validateInput(input) {
     // Normal regex checking
     const rangeRegex = /^(\d+(-\d+)?)(,\d+(-\d+)?)*$/;
     const amountOrSizeRegex = /^\d+$/;
-    const excludeRegex = /^(\d+(-\d+)?)(,\d+(-\d+)?)*$/;
+    const excludeRegex = /^((\d+(-\d+)?)(,\d+(-\d+)?)*)?$/;
     const seperateRegex = /^((\d+(,\d+)+)(\/\d+(,\d+)+)*)?$/;
     let outputString = '';
     if (input.range === '') {
