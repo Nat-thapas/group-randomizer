@@ -23,10 +23,9 @@ if (localStorage.getItem('lang') === 'EN') {
         element.hidden = true;
     });
     document.querySelectorAll('[lang="en"]').forEach((element) => {
-        if (element)
         element.hidden = false;
     });
-    document.querySelector('html').style.fontFamily = 'Roboto';
+    document.querySelector('html').style.fontFamily = 'Roboto, sans-serif';
     document.querySelector('html').hidden = false;
 } else {
     langButton.textContent = 'Language: TH'
@@ -36,7 +35,7 @@ if (localStorage.getItem('lang') === 'EN') {
     document.querySelectorAll('[lang="th"]').forEach((element) => {
         element.hidden = false;
     });
-    document.querySelector('html').style.fontFamily = 'Sarabun';
+    document.querySelector('html').style.fontFamily = 'Sarabun, sans-serif';
     document.querySelector('html').hidden = false;
 }
 
@@ -65,7 +64,7 @@ langButton.addEventListener('click', () => {
         document.querySelectorAll('[lang="th"]').forEach((element) => {
             element.hidden = false;
         });
-        document.querySelector('html').style.fontFamily = 'Sarabun';
+        document.querySelector('html').style.fontFamily = 'Sarabun, sans-serif';
         document.querySelector('html').hidden = false;
     } else {
         localStorage.setItem('lang', 'EN');
@@ -78,7 +77,7 @@ langButton.addEventListener('click', () => {
             if (element)
             element.hidden = false;
         });
-        document.querySelector('html').style.fontFamily = 'Roboto';
+        document.querySelector('html').style.fontFamily = 'Roboto, sans-serif';
         document.querySelector('html').hidden = false;
     }
 });
