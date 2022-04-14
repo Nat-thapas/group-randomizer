@@ -77,13 +77,13 @@ function validateInput(input) {
 }
 
 
-function parseRange(inputString) {
+function parseRange(inputString, treatSingularInputAsAmount) {
     let numbers = [];
     let num1 = 0;
     let num2 = 0;
     const inputList = inputString.split(',');
-    // If single argument was given without -, add from 1 to that number to the list
-    if (inputList.length === 1 && !inputList[0].includes('-')) {
+    // If single argument was given without - an caller want this functionality, add from 1 to that number to the list
+    if (inputList.length === 1 && !inputList[0].includes('-') && treatSingularInputAsAmount) {
         for (let i = 1; i <= parseInt(inputList[0]); i++) {
             numbers.push(i);
         }
@@ -150,10 +150,10 @@ function compareArray(array1, array2) {
 
 
 function randomizeGroup(data) {
-    let numbers = parseRange(data.range);
+    let numbers = parseRange(data.range, true);
     console.log(`Parsed range input: ${numbers}`);
     // Remove numbers that is in the exclude input
-    let excludes = parseRange(data.exclude);
+    let excludes = parseRange(data.exclude, false);
     excludes.forEach((exclude) => {
         if (numbers.includes(exclude)) {
             numbers.splice(numbers.indexOf(exclude), 1);
