@@ -74,7 +74,6 @@ langButton.addEventListener('click', () => {
             element.hidden = true;
         });
         document.querySelectorAll('[lang="en"]').forEach((element) => {
-            if (element)
             element.hidden = false;
         });
         document.querySelector('html').style.fontFamily = 'Roboto, sans-serif';
