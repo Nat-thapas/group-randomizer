@@ -11,13 +11,13 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Sarabun">
     <link rel="icon" href="favicon.ico" type="image/x-icon">
     <!-- third-generation iPad with high-resolution Retina display: -->
-    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="icons/144x144.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="icons/144x144.png">
     <!-- iPhone with high-resolution Retina display: -->
-    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="icons/114x114.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="icons/114x114.png">
     <!-- first- and second-generation iPad: -->
-    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="icons/72x72.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="icons/72x72.png">
     <!-- non-Retina iPhone, iPod Touch, and Android 2.1+ devices: -->
-    <link rel="apple-touch-icon-precomposed" href="icons/57x57.png">
+    <link rel="apple-touch-icon" href="icons/57x57.png">
     <!-- basic favicon -->
     <link rel="icon" href="icons/32x32.png" type="image/png">
     <!-- facebook icon -->
@@ -45,22 +45,22 @@
     <p lang="en">The maybe perfect group randomizer for school or any organization that have a sequential number given to everyone.</p>
     <p lang="th">ระบบสุ่มกลุ่มสำหรับกลุ่มคนที่มีเลขประจำตัวเรียงกัน เช่นเลขที่ของนักเรียนในห้องเรียน</p>
     <form lang="en" action="/" class="form" id="input-form-en">
-        Range of number (or amount of numbers) to randomize: <br><input type="text" class="normalInput" name="range" placeholder="Example: 36 or 1,5-18,20" required><br><br>
-        Mode: <br><input type="radio" class="radioInput" name="mode" value="amount" required>The amount of groups<br>
-              <input type="radio" class="radioInput" name="mode" value="size" required>The size of the groups<br><br>
-        The amount or size of the groups: <br><input type="text" class="normalInput" name="value" placeholder="Example: 6" required><br><br>
-        Numbers to exclude from the randomization: <br><input type="text" class="normalInput" name="exclude" placeholder="Example: 1,2-5"><br><br>
-        Numbers to be seperated into different groups: <br><input type="text" class="normalInput" name="seperate" placeholder="Example: 1,2/3,5"><br><br>
-        <button type="submit" id="submit-button">Randomize!</button>
+        <label for="range">Range of number (or amount of numbers) to randomize: </label><br><input type="text" class="normalInput" name="range" placeholder="Example: 36 or 1,5-18,20" required><br><br>
+        Mode: <br><input type="radio" class="radioInput" name="mode" value="amount" id="mode-selector-amount" required><label for="mode-selector-amount">The amount of groups</label><br>
+              <input type="radio" class="radioInput" name="mode" value="size" id="mode-selector-size" required><label for="mode-selector-size">The size of the groups</label><br><br>
+        <label for="value">amount or size of the groups: </label><br><input type="text" class="normalInput" name="value" placeholder="Example: 6" required><br><br>
+        <label for="exclude">Numbers to exclude from the randomization: </label><br><input type="text" class="normalInput" name="exclude" placeholder="Example: 1,2-5"><br><br>
+        <label for="seperate">Numbers to be seperated into different groups: </label><br><input type="text" class="normalInput" name="seperate" placeholder="Example: 1,2/3,5"><br><br>
+        <button type="submit" id="submit-button"><label for="submit-button">Randomize!</label></button>
     </form>
     <form lang="th" action="/" class="form" id="input-form-th">
-        ช่วงของเลข หรือจำนวนเลขที่จะสุ่ม: <br><input type="text" class="normalInput" name="range" placeholder="เช่น: 36 หรือ 1,5-18,20" required><br><br>
-        โหมด: <br><input type="radio" class="radioInput" name="mode" value="amount" required>จำนวนกลุ่ม<br>
-              <input type="radio" class="radioInput" name="mode" value="size" required>ขนาดกลุ่ม<br><br>
-        จำนวนหรือขนาดของกลุ่ม: <br><input type="text" class="normalInput" name="value" placeholder="เช่น: 6" required><br><br>
-        เลขที่จะไม่สุ่ม: <br><input type="text" class="normalInput" name="exclude" placeholder="เช่น: 1,2-5"><br><br>
-        เลขที่จะแยกคนละกลุ่ม: <br><input type="text" class="normalInput" name="seperate" placeholder="เช่น: 1,2/3,5"><br><br>
-        <button type="submit" id="submit-button">สุ่มเลย!</button>
+        <label for="range">ช่วงของเลข หรือจำนวนเลขที่จะสุ่ม: </label><br><input type="text" class="normalInput" name="range" placeholder="เช่น: 36 หรือ 1,5-18,20" required><br><br>
+        โหมด: <br><input type="radio" class="radioInput" name="mode" value="amount" id="mode-selector-amount" required><label for="mode-selector-amount">จำนวนกลุ่ม</label><br>
+              <input type="radio" class="radioInput" name="mode" value="size" id="mode-selector-size" required><label for="mode-selector-size">ขนาดกลุ่ม</label><br><br>
+        <label for="value">จำนวนหรือขนาดของกลุ่ม: </label><br><input type="text" class="normalInput" name="value" placeholder="เช่น: 6" required><br><br>
+        <label for="exclude">เลขที่จะไม่สุ่ม: </label><br><input type="text" class="normalInput" name="exclude" placeholder="เช่น: 1,2-5"><br><br>
+        <label for="seperate">เลขที่จะแยกคนละกลุ่ม: </label><br><input type="text" class="normalInput" name="seperate" placeholder="เช่น: 1,2/3,5"><br><br>
+        <button type="submit" id="submit-button"><label for="submit-button">สุ่มเลย!</label></button>
     </form>
     <h2 lang="en" class="output-header" id="output-header-en" style="opacity: 0;">Output: </h2>
     <h2 lang="th" class="output-header" id="output-header-th" style="opacity: 0;">กลุ่ม: </h2>
