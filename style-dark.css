@@ -75,7 +75,7 @@ input:-webkit-autofill:focus {
     -webkit-text-fill-color: var(--foreground-color);
 }
 
-#submit-button {
+.submit-button {
     border: 0;
     padding: 10px 15px;
     font-size: larger;

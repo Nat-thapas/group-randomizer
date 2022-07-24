@@ -1,5 +1,9 @@
-var lang = localStorage.getItem('lang').toLowerCase();
-var inputForm = document.getElementById(`input-form-${lang}`);
+if (localStorage.getItem('lang')) {
+    var lang = localStorage.getItem('lang').toLowerCase();
+} else {
+    var lang = 'en';
+}
+
 const groupList = document.getElementById('group-list');
 const body = document.querySelector('body');
 const outputHeaders = document.getElementsByClassName('output-header')
@@ -10,7 +14,6 @@ const unableToGetGroup = {};
 
 function updateLang() {
     lang = localStorage.getItem('lang').toLowerCase();
-    inputForm = document.getElementById(`input-form-${lang}`);
 }
 
 
@@ -260,6 +263,8 @@ document.querySelectorAll('form').forEach((form) => {
     form.addEventListener('submit', (evt) => {
         // Prevent submitting the form to the server
         evt.preventDefault();
+        console.log('Form summission catched');
+        console.log(evt);
         // Format form data into dictionary
         const rawFormData = new FormData(evt.target);
         const mode = evt.target.elements['mode'].value;
@@ -295,4 +300,5 @@ document.querySelectorAll('form').forEach((form) => {
             }
         }
     });
+    console.log('Form summision event listener added');
 });
