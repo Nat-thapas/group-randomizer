@@ -20,6 +20,7 @@ function updateLang() {
 function validateInput(input) {
     // Normal regex checking
     const rangeRegex = /^(\d+(-\d+)?)(,\d+(-\d+)?)*$/;
+    const individualSizesRegex = /^\d+(,\d+)*$/;
     const amountOrSizeRegex = /^\d+$/;
     const excludeRegex = /^((\d+(-\d+)?)(,\d+(-\d+)?)*)?$/;
     const seperateRegex = /^((\d+(,\d+)+)(\/\d+(,\d+)+)*)?$/;
@@ -50,13 +51,26 @@ function validateInput(input) {
         } else {
             outputString += 'Amount/size input is not present, ';
         }
-    } else if (!amountOrSizeRegex.test(input.value)) {
-        if (lang === 'th') {
-            outputString += 'ข้อมูลจำนวนหรือขนาดของกลุ่มไม่ถูกต้อง, ';
-        } else {
-            outputString += 'Amount/size input is invalid, ';
+    } else if (input.mode === 'amount' || input.mode === 'size') {
+        if (!amountOrSizeRegex.test(input.value)) {
+            if (lang === 'th') {
+                outputString += 'ข้อมูลจำนวนหรือขนาดของกลุ่มไม่ถูกต้อง, ';
+            } else {
+                outputString += 'Amount/size input is invalid, ';
+            }
+        }
+    } else if (input.mode === 'individual') {
+        if (!individualSizesRegex.test(input.value)) {
+            if (lang === 'th') {
+                outputString += 'ข้อมูลขนาดของกลุ่มแต่ละกลุ่มไม่ถูกต้อง, ';
+            } else {
+                outputString += 'Individual groups sizes input is invalid, ';
+            }
         }
     }
+    
+    
+    
     if (!excludeRegex.test(input.exclude)) {
         if (lang === 'th') {
             outputString += 'ข้อมูลเลขที่จะไม่สุ่มไม่ถูกต้อง, ';
@@ -108,6 +122,16 @@ function parseRange(inputString, treatSingularInputAsAmount) {
         });
     }
     return numbers;
+}
+
+
+function parseArray(inputString) {
+    const stringArray = inputString.split(',');
+    let outputArray = [];
+    stringArray.forEach((numChar) => {
+        outputArray.push(parseInt(numChar));
+    });
+    return outputArray;
 }
 
 
@@ -165,12 +189,24 @@ function randomizeGroup(data) {
     console.log(`Parsed range input after exclusion: ${numbers}`);
     let amountOfGroup = 0;
     // Get group sizes
+    let groupSizes;
     if (data.mode === 'amount') {
         amountOfGroup = parseInt(data.value);
-    } else {
+        groupSizes = getGroupSizes(numbers.length, amountOfGroup);
+    } else if (data.mode === 'size') {
         amountOfGroup = Math.round(numbers.length/parseInt(data.value));
+        groupSizes = getGroupSizes(numbers.length, amountOfGroup);
+    } else {
+        groupSizes = parseArray(data.value);
+        if (sumArray(groupSizes) != numbers.length) {
+            if (lang === 'th') {
+                alert('ขนาดกลุ่มไม่ลงตัว (ขนาดของกลุ่มทุกกลุ่มรวมกันไม่เท่ากับจำนวนตัวเลขที่จะสุ่ม)');
+            } else {
+                alert('Group sizes inapplicable (the sum of all group sizes does not equal the amount of numbers to randomize)');
+            }
+            return false;
+        }
     }
-    const groupSizes = getGroupSizes(numbers.length, amountOfGroup);
     console.log(`Group sizes: ${groupSizes}`);
     // Making the groups 2d array
     let groups = [];
@@ -267,12 +303,12 @@ document.querySelectorAll('form').forEach((form) => {
         console.log(evt);
         // Format form data into dictionary
         const rawFormData = new FormData(evt.target);
+        // Add radio input seperately
         const mode = evt.target.elements['mode'].value;
         let formData = {};
         rawFormData.forEach((value, key) => {
             formData[key] = value.replaceAll(' ', '');
         });
-        // Add radio input seperately
         formData.mode = mode.replaceAll(' ', '');
         console.log(`Form data is: ${JSON.stringify(formData)}`);
         // Validate input

@@ -47,8 +47,9 @@
     <form lang="en" action="/" class="form" id="input-form-en">
         <label for="range">Range of number (or amount of numbers) to randomize: </label><br><input type="text" class="normalInput" name="range" placeholder="Example: 36 or 1,5-18,20" required><br><br>
         Mode: <br><input type="radio" class="radioInput" name="mode" value="amount" id="mode-selector-amount" required><label for="mode-selector-amount">The amount of groups</label><br>
-              <input type="radio" class="radioInput" name="mode" value="size" id="mode-selector-size" required><label for="mode-selector-size">The size of the groups</label><br><br>
-        <label for="value">amount or size of the groups: </label><br><input type="text" class="normalInput" name="value" placeholder="Example: 6" required><br><br>
+              <input type="radio" class="radioInput" name="mode" value="size" id="mode-selector-size" required><label for="mode-selector-size">The size of the groups</label><br>
+              <input type="radio" class="radioInput" name="mode" value="individual" id="mode-selector-individual" required><label for="mode-selector-individual">The sizes of the individual groups</label><br><br>
+        <label for="value">Amount or size(s) of the groups: </label><br><input type="text" class="normalInput" name="value" placeholder="Example: 6 or 2,4,4" required><br><br>
         <label for="exclude">Numbers to exclude from the randomization: </label><br><input type="text" class="normalInput" name="exclude" placeholder="Example: 1,2-5"><br><br>
         <label for="seperate">Numbers to be seperated into different groups: </label><br><input type="text" class="normalInput" name="seperate" placeholder="Example: 1,2/3,5"><br><br>
         <button type="submit" class="submit-button" id="submit-button-en">Randomize!</button>
@@ -56,7 +57,8 @@
     <form lang="th" action="/" class="form" id="input-form-th">
         <label for="range">ช่วงของเลข หรือจำนวนเลขที่จะสุ่ม: </label><br><input type="text" class="normalInput" name="range" placeholder="เช่น: 36 หรือ 1,5-18,20" required><br><br>
         โหมด: <br><input type="radio" class="radioInput" name="mode" value="amount" id="mode-selector-amount" required><label for="mode-selector-amount">จำนวนกลุ่ม</label><br>
-              <input type="radio" class="radioInput" name="mode" value="size" id="mode-selector-size" required><label for="mode-selector-size">ขนาดกลุ่ม</label><br><br>
+              <input type="radio" class="radioInput" name="mode" value="size" id="mode-selector-size" required><label for="mode-selector-size">ขนาดกลุ่ม</label><br>
+              <input type="radio" class="radioInput" name="mode" value="individual" id="mode-selector-individual" required><label for="mode-selector-individual">ขนาดของแต่ละกลุ่ม</label><br><br>
         <label for="value">จำนวนหรือขนาดของกลุ่ม: </label><br><input type="text" class="normalInput" name="value" placeholder="เช่น: 6" required><br><br>
         <label for="exclude">เลขที่จะไม่สุ่ม: </label><br><input type="text" class="normalInput" name="exclude" placeholder="เช่น: 1,2-5"><br><br>
         <label for="seperate">เลขที่จะแยกคนละกลุ่ม: </label><br><input type="text" class="normalInput" name="seperate" placeholder="เช่น: 1,2/3,5"><br><br>
